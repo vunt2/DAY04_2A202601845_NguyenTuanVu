@@ -6,9 +6,13 @@
 
 ## Team
 
-- Team:
+- Team: Day 04 Research Agent Team (Nhóm 4)
 - Members:
-- Provider/model:
+  1. Nguyễn Tuấn Vũ (MSSV: 2A202601845 - Trưởng nhóm / UI & Report Lead)
+  2. Nguyễn Phúc Hưng (MSSV: 2A202601115 - Prompt & Policy Engineer)
+  3. Nguyễn Văn Phong (MSSV: 2A202601087 - Tool Developer)
+  4. Nguyễn Hữu Khánh Tùng (MSSV: 2A202601781 - Eval & Benchmark QA)
+- Provider/model: OpenRouter / OpenAI / Gemini (Configurable)
 
 ---
 
@@ -16,25 +20,26 @@
 
 ## A1. Agent này làm được gì
 
-> 1–2 câu mô tả agent dùng để làm gì.
-
-Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc URL và tổng hợp thành digest."
+Research Agent: hỗ trợ tìm kiếm tin tức mạng xã hội theo từ khóa (`social_search`), tra cứu bài đăng theo tài khoản (`timeline`), đọc và trích xuất nội dung URL (`fetch`), tra cứu web (`lookup`), hỏi lại thông tin khi mơ hồ (`clarify`), định dạng dữ liệu (`format`), và hỗ trợ tra cứu tài liệu khoa học arXiv / chính sách nội bộ.
 
 **Link dùng thử (truy cập được trong showdown):**
 
-> Dán public URL nếu người khác cần mở từ máy riêng; localhost cũng được nếu demo trực tiếp trên máy trình chiếu. Streamlit được khuyến nghị, nhưng nhóm có thể dùng bất kỳ framework nào.
->
-> URL:
+> URL: http://localhost:8501
 
 ## A2. Tool agent có
 
-> Liệt kê các tool agent đang dùng. Mỗi tool 1 dòng: tên + làm được gì.
-
 | Tên tool | Làm được gì | Tool mới nhóm thêm? |
 |---|---|---|
-| clarify | hỏi lại người dùng khi thiếu thông tin | không |
-|  |  |  |
-|  |  |  |
+| clarify | hỏi lại người dùng khi thiếu thông tin hoặc cần xác nhận | không |
+| timeline | lấy các bài đăng gần đây của tài khoản mạng xã hội | không |
+| social_search | tìm bài đăng mạng xã hội theo từ khóa | không |
+| lookup | tra cứu thông tin tổng hợp trên internet | không |
+| fetch | đọc và trích xuất nội dung từ một địa chỉ URL | không |
+| format | trình bày các dữ liệu thu thập thành văn bản markdown | không |
+| send | gửi tin nhắn thông báo (có confirmation boundary) | không |
+| policy | tra cứu tài liệu chính sách công ty nội bộ | không |
+| papers | tìm kiếm bài báo khoa học trên arXiv | không |
+| paper_text | tải và trích xuất text nội dung từ arXiv PDF | không |
 
 ## A3. Câu hỏi mẫu để thử
 
