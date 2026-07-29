@@ -17,6 +17,7 @@ from .policy.tool import search_company_policy
 from .social_search.tool import search_tweets
 from .send.tool import send_telegram
 from .lookup.tool import web_search
+from .tech_news.tool import get_tech_news
 
 
 # NOTE (starter_v0): tool names here are intentionally vague. These keys are the
@@ -29,6 +30,7 @@ TOOL_FUNCTIONS = {
     "timeline": get_user_tweets,
     "social_search": search_tweets,
     "lookup": web_search,
+    "tech_news": get_tech_news,
     "fetch": read_url,
     "format": render_digest,
     "send": send_telegram,

@@ -49,6 +49,16 @@ tools:
         url: {type: string, default: "", description: "Địa chỉ URL cụ thể cần đọc"}
       required: [url]
 
+  - name: tech_news
+    description: "Lấy các bài công nghệ hoặc AI mới từ Hacker News. Dùng khi người dùng cần top story hoặc tin công nghệ mới; không dùng để tìm kiếm web tổng quát. Không cần API key."
+    parameters:
+      type: object
+      properties:
+        mode: {type: string, enum: [top, new], default: "top", description: "top: bài đang được xếp hạng cao; new: bài mới đăng"}
+        limit: {type: integer, default: 5, description: "Số bài trả về, từ 1 đến 10"}
+        query: {type: string, default: "", description: "Từ khóa tùy chọn để lọc trong tiêu đề/nội dung, ví dụ AI hoặc OpenAI"}
+      required: [mode, limit]
+
   - name: format
     description: "Trình bày các thông tin/kết quả nghiên cứu đã thu thập thành văn bản báo cáo theo định dạng mong muốn."
     parameters:
