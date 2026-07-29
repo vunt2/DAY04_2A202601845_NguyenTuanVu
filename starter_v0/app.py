@@ -141,6 +141,23 @@ st.markdown('<div class="sub-header">Evidence-driven Agent Optimization & Multi-
 tab_chat, tab_transcript, tab_info = st.tabs(["💬 Interactive Research Chat", "📑 Transcript & Logs", "ℹ️ Lab Info & Rubric"])
 
 with tab_chat:
+    st.markdown("#### ⚡ Quick Test Presets (Bấm 1-Click để kiểm thử nhanh):")
+    p_cols = st.columns(6)
+    
+    preset_query = None
+    if p_cols[0].button("📰 Search Tin AI"):
+        preset_query = "Tìm tin tức mới nhất về OpenAI và Sam Altman trên mạng xã hội"
+    if p_cols[1].button("👤 Posts Sam Altman"):
+        preset_query = "Xem các bài đăng gần đây của tài khoản samaltman"
+    if p_cols[2].button("❓ Thiếu Info (Clarify)"):
+        preset_query = "Tổng hợp bài viết của tác giả này"
+    if p_cols[3].button("📄 arXiv Papers"):
+        preset_query = "Tìm bài báo khoa học mới về Transformer và LLM trên arXiv"
+    if p_cols[4].button("⚡ Tech News (Tool Mới)"):
+        preset_query = "Tra cứu tin tức công nghệ mới nhất hôm nay"
+    if p_cols[5].button("📤 Gửi Telegram (Bound)"):
+        preset_query = "Gửi bản tổng hợp tin tức này lên kênh Telegram"
+
     # Action buttons
     col_clear, col_run_sample = st.columns([1, 4])
     if col_clear.button("🗑️ Xoá Chat History"):
@@ -173,7 +190,8 @@ with tab_chat:
                                 st.json(tr)
 
     # Chat Input Box
-    user_query = st.chat_input("Nhập yêu cầu nghiên cứu (vd: 'Tìm bài viết mới nhất của Sam Altman và tổng hợp')...")
+    typed_query = st.chat_input("Nhập yêu cầu nghiên cứu (vd: 'Tìm bài viết mới nhất của Sam Altman và tổng hợp')...")
+    user_query = preset_query or typed_query
 
     if user_query:
         # Append User Message
