@@ -78,10 +78,10 @@ Các nhánh trong sơ đồ là tên nhánh đang tồn tại trong repository. 
 
 ## 5. Checklist hoàn thành
 
-- [ ] Provider thật và preflight pass; có base eval `v0`.
-- [ ] Ít nhất 5 tool được khai báo trong `artifacts/tools.yaml`.
-- [ ] Có 3 vòng cải tiến thực chất `v1`, `v2`, `v3` và `version_log.csv` đủ bằng chứng.
-- [ ] Có ít nhất 1 tool mới với `TOOL.md`, implementation, registry, declaration và smoke test.
-- [ ] `eval_group.json` có đúng 10 cases: 5 single-turn, 5 multi-turn.
-- [ ] UI chạy được, hiển thị trace/version và lưu transcript.
-- [ ] Có run JSON, transcript JSON và `REPORT.md` hoàn chỉnh dựa trên log thật.
+- [x] Provider thật và preflight pass; có base eval `v0`.
+- [x] Ít nhất 5 tool được khai báo trong `artifacts/tools.yaml`.
+- [x] Có 3 vòng cải tiến thực chất `v1`, `v2`, `v3` và `version_log.csv` đủ bằng chứng.
+- [x] Có ít nhất 1 tool mới với `TOOL.md`, implementation, registry, declaration và smoke test.
+- [x] `eval_group.json` có đúng 10 cases: 5 single-turn, 5 multi-turn.
+- [x] UI chạy được, hiển thị trace/version và lưu transcript.
+- [x] Có run JSON, transcript JSON và `REPORT.md` hoàn chỉnh dựa trên log thật.
