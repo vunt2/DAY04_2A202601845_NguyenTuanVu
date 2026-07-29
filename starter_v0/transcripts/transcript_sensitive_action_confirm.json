@@ -1,0 +1,83 @@
+{
+  "version": "v3",
+  "artifact_version": "v3+p609186647d18+t360df9c40c6c",
+  "prompt_hash": "609186647d18d2cb27565a890754e39ecab9bb8ef10a88a30a2651d38c3c7d49",
+  "tools_hash": "360df9c40c6c8054b2ce80aadfb604cccd5d54c67a462c179d409d8f44a29f21",
+  "updated_at": "2026-07-29T11:42:00.000000+00:00",
+  "turns": [
+    {
+      "role": "user",
+      "content": "Gửi bản tổng hợp tin tức này lên Telegram"
+    },
+    {
+      "role": "assistant",
+      "content": "Bạn có xác nhận muốn gửi bản tổng hợp tin tức này lên kênh Telegram chính thức không?",
+      "status": "waiting_for_user",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "Hành động gửi Telegram là hành động phát hành nhạy cảm, cần dừng lại xin xác nhận từ người dùng.",
+          "tool_calls": [
+            {
+              "name": "clarify",
+              "args": {
+                "question": "Bạn có xác nhận muốn gửi bản tổng hợp tin tức này lên kênh Telegram chính thức không?",
+                "response_type": "yes_no"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "name": "clarify",
+              "args": {
+                "question": "Bạn có xác nhận muốn gửi bản tổng hợp tin tức này lên kênh Telegram chính thức không?",
+                "response_type": "yes_no"
+              },
+              "result": {
+                "awaiting_user": true,
+                "question": "Bạn có xác nhận muốn gửi bản tổng hợp tin tức này lên kênh Telegram chính thức không?"
+              }
+            }
+          ]
+        }
+      ],
+      "tool_events": [
+        {
+          "name": "clarify",
+          "args": {
+            "question": "Bạn có xác nhận muốn gửi bản tổng hợp tin tức này lên kênh Telegram chính thức không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "awaiting_user": true,
+            "question": "Bạn có xác nhận muốn gửi bản tổng hợp tin tức này lên kênh Telegram chính thức không?"
+          }
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "role": "user",
+      "content": "Gửi bản tổng hợp tin tức này lên Telegram"
+    },
+    {
+      "role": "assistant",
+      "content": "Bạn có xác nhận muốn gửi bản tổng hợp tin tức này lên kênh Telegram chính thức không?",
+      "status": "waiting_for_user"
+    }
+  ],
+  "tool_events": [
+    {
+      "name": "clarify",
+      "args": {
+        "question": "Bạn có xác nhận muốn gửi bản tổng hợp tin tức này lên kênh Telegram chính thức không?",
+        "response_type": "yes_no"
+      },
+      "result": {
+        "awaiting_user": true,
+        "question": "Bạn có xác nhận muốn gửi bản tổng hợp tin tức này lên kênh Telegram chính thức không?"
+      }
+    }
+  ]
+}

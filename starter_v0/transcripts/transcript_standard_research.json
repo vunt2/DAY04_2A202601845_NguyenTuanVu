@@ -1,0 +1,149 @@
+{
+  "version": "v3",
+  "artifact_version": "v3+p609186647d18+t360df9c40c6c",
+  "prompt_hash": "609186647d18d2cb27565a890754e39ecab9bb8ef10a88a30a2651d38c3c7d49",
+  "tools_hash": "360df9c40c6c8054b2ce80aadfb604cccd5d54c67a462c179d409d8f44a29f21",
+  "updated_at": "2026-07-29T11:42:00.000000+00:00",
+  "turns": [
+    {
+      "role": "user",
+      "content": "Tìm tin tức mới nhất về OpenAI và Sam Altman trên mạng xã hội"
+    },
+    {
+      "role": "assistant",
+      "content": "Tôi đã tìm kiếm và tổng hợp các tin tức mới nhất về OpenAI và Sam Altman từ mạng xã hội. Các chủ đề nổi bật bao gồm cập nhật mô hình LLM mới và các thông báo chiến lược gần đây.",
+      "status": "success",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "Tôi sẽ tìm kiếm tin tức trên mạng xã hội về OpenAI và Sam Altman.",
+          "tool_calls": [
+            {
+              "name": "social_search",
+              "args": {
+                "query": "OpenAI Sam Altman",
+                "search_type": "Top"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "name": "social_search",
+              "args": {
+                "query": "OpenAI Sam Altman",
+                "search_type": "Top"
+              },
+              "result": {
+                "count": 3,
+                "tweets": [
+                  {
+                    "id": "101",
+                    "text": "OpenAI announces latest model capabilities and partnership updates."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "tool_events": [
+        {
+          "name": "social_search",
+          "args": {
+            "query": "OpenAI Sam Altman",
+            "search_type": "Top"
+          },
+          "result": {
+            "count": 3,
+            "tweets": [
+              {
+                "id": "101",
+                "text": "OpenAI announces latest model capabilities and partnership updates."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "role": "user",
+      "content": "Tìm tin tức mới nhất về OpenAI và Sam Altman trên mạng xã hội"
+    },
+    {
+      "role": "assistant",
+      "content": "Tôi đã tìm kiếm và tổng hợp các tin tức mới nhất về OpenAI và Sam Altman từ mạng xã hội. Các chủ đề nổi bật bao gồm cập nhật mô hình LLM mới và các thông báo chiến lược gần đây.",
+      "status": "success",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "Tôi sẽ tìm kiếm tin tức trên mạng xã hội về OpenAI và Sam Altman.",
+          "tool_calls": [
+            {
+              "name": "social_search",
+              "args": {
+                "query": "OpenAI Sam Altman",
+                "search_type": "Top"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "name": "social_search",
+              "args": {
+                "query": "OpenAI Sam Altman",
+                "search_type": "Top"
+              },
+              "result": {
+                "count": 3,
+                "tweets": [
+                  {
+                    "id": "101",
+                    "text": "OpenAI announces latest model capabilities and partnership updates."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "tool_events": [
+        {
+          "name": "social_search",
+          "args": {
+            "query": "OpenAI Sam Altman",
+            "search_type": "Top"
+          },
+          "result": {
+            "count": 3,
+            "tweets": [
+              {
+                "id": "101",
+                "text": "OpenAI announces latest model capabilities and partnership updates."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "tool_events": [
+    {
+      "name": "social_search",
+      "args": {
+        "query": "OpenAI Sam Altman",
+        "search_type": "Top"
+      },
+      "result": {
+        "count": 3,
+        "tweets": [
+          {
+            "id": "101",
+            "text": "OpenAI announces latest model capabilities and partnership updates."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -17,6 +17,14 @@ class MockProvider:
         temperature: float = 0.0,
         tool_choice: Any | None = None,
     ) -> ModelResponse:
+        # Kiểm tra nếu lượt trước đã gọi tool và có kết quả (TOOL_RESULTS_JSON) ➔ Dừng vòng lặp và trả về câu trả lời cuối
+        last_msg = messages[-1].get("content", "") if messages else ""
+        if "TOOL_RESULTS_JSON:" in last_msg:
+            return ModelResponse(
+                text="Đã thu thập và xử lý xong dữ liệu! Bạn có thể bấm mở khung 'Executed Tool Traces (Rounds & Events)' ở trên để xem chi tiết kết quả trả về của Tool.",
+                tool_calls=[]
+            )
+
         user_text = ""
         for m in reversed(messages):
             if m.get("role") == "user":
