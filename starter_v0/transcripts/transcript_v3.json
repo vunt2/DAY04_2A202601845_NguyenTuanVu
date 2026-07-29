@@ -1,0 +1,48 @@
+{
+  "version": "v3",
+  "artifact_version": "v3+p609186647d18+t360df9c40c6c",
+  "prompt_hash": "609186647d18d2cb27565a890754e39ecab9bb8ef10a88a30a2651d38c3c7d49",
+  "tools_hash": "360df9c40c6c8054b2ce80aadfb604cccd5d54c67a462c179d409d8f44a29f21",
+  "updated_at": "2026-07-29T12:52:48",
+  "turns": [
+    {
+      "role": "user",
+      "content": "hllo]"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello! How can I assist you today?",
+      "status": "answered",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "Hello! How can I assist you today?",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": []
+    }
+  ],
+  "messages": [
+    {
+      "role": "user",
+      "content": "hllo]"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello! How can I assist you today?",
+      "status": "answered",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "Hello! How can I assist you today?",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": []
+    }
+  ],
+  "tool_events": []
+}

@@ -1,0 +1,918 @@
+{
+  "run_id": "v3_B_group_openrouter_20260729T115951949481",
+  "version": "v3",
+  "artifact_version": "v3+p609186647d18+t360df9c40c6c",
+  "prompt_hash": "609186647d18d2cb27565a890754e39ecab9bb8ef10a88a30a2651d38c3c7d49",
+  "tools_hash": "360df9c40c6c8054b2ce80aadfb604cccd5d54c67a462c179d409d8f44a29f21",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\AI20K\\LABS\\DAY04_2A202601845_NguyenTuanVu\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\AI20K\\LABS\\DAY04_2A202601845_NguyenTuanVu\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Bộ 10 Eval cases do nhóm thiết kế (5 single-turn + 5 multi-turn) bao gồm kiểm thử tool mới tech_news, routing, confirmation boundary, clarification và no_tool cases.",
+  "generated_at": "2026-07-29T11:59:51",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 8,
+    "case_accuracy": 0.8,
+    "tool_routing_accuracy": 0.9,
+    "argument_accuracy": 0.8,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {
+      "wrong_arg_value": 1,
+      "missing_info": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 1,
+      "missing_tool_call": 1
+    }
+  },
+  "results": [
+    {
+      "id": "G01_single_tech_news",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Routing tin công nghệ hot từ Hacker News sang tool mới tech_news."
+      },
+      "input": "Lấy 5 bài tin tức công nghệ hot nhất hôm nay từ Hacker News.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "top",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "top",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "tech_news",
+          "args": {
+            "mode": "top",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_tech_news",
+            "mode": "top",
+            "query": "",
+            "items": [
+              {
+                "title": "Codex Security",
+                "url": "https://github.com/openai/codex-security",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-28T20:52:55Z",
+                "story_id": 49089755,
+                "discussion_url": "https://news.ycombinator.com/item?id=49089755",
+                "score": 422,
+                "comments": 132,
+                "by": "bakigul"
+              },
+              {
+                "title": "LearnVector – Andrew Ng's AI company building one‑to‑one learning experiences",
+                "url": "https://learnvector.ai/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T01:49:19Z",
+                "story_id": 49092499,
+                "discussion_url": "https://news.ycombinator.com/item?id=49092499",
+                "score": 98,
+                "comments": 53,
+                "by": "ajhai"
+              },
+              {
+                "title": "Transformer Transformer: A Unified Model for Motion-Conditioned Robot Co-Design",
+                "url": "https://transformer-transformer.github.io/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T03:52:29Z",
+                "story_id": 49093232,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093232",
+                "score": 10,
+                "comments": 0,
+                "by": "ilreb"
+              },
+              {
+                "title": "Show HN: I was tired of opening 2 tabs for every HN link, so I made a userscript",
+                "url": "https://github.com/twalichiewicz/HNewhere",
+                "source": "Hacker News",
+                "summary": "HN is great for the links people share, but a big part of the value I get comes from reading the discussion around them. I realized I was always opening the article in one tab and the comments in another, constantly switching back and forth.<p>I figured there was probably a simpler way, so I threw together this userscript to merge the two.<p>1. Clicking a link from Hacker News opens the article with a side panel containing the discussion. It doesn&#x27;t require your credentials, is resizable, and is easy to tweak if you want to customize it.<p>2. If you land on an article that has previously been shared on HN, the script finds the existing discussion and adds a button in the top-right to open the panel.<p>Feedback welcome.",
+                "published_at": "2026-07-28T22:09:06Z",
+                "story_id": 49090607,
+                "discussion_url": "https://news.ycombinator.com/item?id=49090607",
+                "score": 197,
+                "comments": 59,
+                "by": "twalichiewicz"
+              },
+              {
+                "title": "Multiple Mouse Cursors in Wayland",
+                "url": "https://blinry.org/multi-seat-wayland/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T00:59:37Z",
+                "story_id": 49092112,
+                "discussion_url": "https://news.ycombinator.com/item?id=49092112",
+                "score": 58,
+                "comments": 32,
+                "by": "marvinborner"
+              }
+            ],
+            "source_url": "https://hacker-news.firebaseio.com/v0/topstories.json",
+            "note": "Public Hacker News API; no API key is required."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_single_lookup_news",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Routing web search thời sự có topic=news và timeframe=week."
+      },
+      "input": "Tìm kiếm tin tức về công nghệ pin ô tô điện trong tuần này.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "pin ô tô điện",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "công nghệ pin ô tô điện",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "query: expected 'pin ô tô điện', got 'công nghệ pin ô tô điện'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "công nghệ pin ô tô điện",
+            "topic": "news",
+            "timeframe": "week"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "công nghệ pin ô tô điện",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Improving electric vehicle efficiency in power conversion - The Manufacturer",
+                "url": "https://www.themanufacturer.com/articles/improving-electric-vehicle-efficiency-in-power-conversion/",
+                "source": "themanufacturer.com",
+                "summary": "# Improving electric vehicle efficiency in power conversion. Image 9: Improving electric vehicle efficiency in power conversion. **Electric vehicles rely on power electronics to convert battery energy into power for the motor. A key part of this control is the ‘gate driver’, which determines how fast a switch turns on and off. *   **Why is power conversion efficiency so important in electric vehicles?**: Every electric vehicle relies on power electronics to convert energy from the battery into power for the motor. *   **What is the biggest challenge with conventional gate driver technology?:** Traditional gate drivers rely on a fixed resistor to control how quickly semiconductor switches turn on and off. *   **How does the EleVait project offer a different approach?:** Rather than using multiple switching configurations or complex feedback systems, the University of Bristol’s Electrical Energy Management Research Group developed a simpler three-step switching method that operates using a single fixed pattern.",
+                "score": 0.14074938
+              },
+              {
+                "title": "Need backup power? Automakers want you to look no further than their vehicles in your driveway - AP News",
+                "url": "https://apnews.com/article/climate-automakers-home-energy-power-outage-c5e2945dbf973794de453efe3178a2dd",
+                "source": "apnews.com",
+                "summary": "Test Your News I.Q. 2026 Elections Election Results Election calendar White House Congress Supreme Court The latest AP-NORC polls. Now, Kovar has a setup from Ford that allows drivers of certain F-150 models to plug their vehicle directly into their electric meter to power parts of their home during an outage. It is the latest example of automakers broadly adapting their electrification technologies to the home energy business, especially as demand on the grid increases and sales of electric vehicles slow. “The way we think about it, especially for customers who already have a compatible vehicle is, you already own the power source, it’s in your driveway,” said Amanda Roraff, Ford’s grid and energy services business acceleration lead. Once an outage is detected, GM’s vehicle-to-home tech has the capability to disconnect one’s home from the grid and start supplying power from their GM EV.",
+                "score": 0.11247352
+              },
+              {
+                "title": "Need backup power? Automakers want you to look no further than their vehicles in your driveway - Greenwich Time",
+                "url": "https://www.greenwichtime.com/business/article/need-backup-power-automakers-want-you-to-look-no-22355347.php",
+                "source": "greenwichtime.com",
+                "summary": "Automakers want you to look no further than their vehicles in your driveway. DETROIT (AP) — Winter Storm Uri, the multiday freeze that slammed Texas in February 2021 and pummeled the state's power grid, has been on Kenneth Kovar's mind ever since. Though the resident of New Braunfels, northeast of San Antonio, didn't lose power at the time, he wasn't able to run his septic tank — it is independent from local systems. Now, Kovar has a setup from Ford that allows drivers of certain F-150 models to plug their vehicle directly into their electric meter to power parts of their home during an outage. It is the latest example of automakers broadly adapting their electrification technologies to the home energy business, especially as demand on the grid increases and sales of electric vehicles slow. “The way we think about it, especially for customers who already have a compatible vehicle is, you already own the power source, it’s in your driveway,” said Amanda Roraff, Ford's grid and energy services business acceleration lead.",
+                "score": 0.11223978
+              },
+              {
+                "title": "Einride to buy Flipturn, build largest US HDV charging net - Automotive World",
+                "url": "https://www.automotiveworld.com/news/einride-to-buy-flipturn-build-largest-us-hdv-charging-net/",
+                "source": "automotiveworld.com",
+                "summary": "Volkswagen deepens Horizon Robotics ties for China ADAS, AVs Einride to buy Flipturn, build largest US HDV charging net Tesla's robotaxi map grows again just ahead of earnings Range Rover adds a fifth model: the all-electric GT ZF reaches 100 million electric power steering milestone Motional targets Las Vegas driverless debut by year-end Volkswagen launches Golf and T-Roc full hybrid in Germany Honeywell signs first eVTOL deal with Vertical Aerospace Mercedes reportedly halts CLA L output amid China sales slide Mercedes pushes to raise Senate bill's China ownership cap. “Our goal is to help stakeholders understand the future of mobility.”. Home › News › Einride to buy Flipturn, build largest US HDV charging net. # Einride to buy Flipturn, build largest US HDV charging net. Einride has agreed to acquire charging and energy software specialist Flipturn in a deal valued at around US$38.4m, adding more than 250 megawatts of managed charging capacity to its portfolio and more than doubling its existing energy under management. Flipturn’s existing team and platform will continue operating as-is, according to the company’s Co-Founder and Chief Executive, Katie Siegel. https://www.automotiveworld.com/news/einride-to-buy-flipturn-build-largest-us-hdv-charging-net/.",
+                "score": 0.05925935
+              },
+              {
+                "title": "Catalyxx Announces Its First Commercial-Scale Renewable Chemicals Plant - CHEManager",
+                "url": "https://chemanager-online.com/en/news/catalyxx-announces-its-first-commercial-scale-renewable-chemicals-plant",
+                "source": "chemanager-online.com",
+                "summary": "## The project represents a major milestone in the industrial deployment of Catalyxx’s technology and has been recognized as a Project of National Interest (PIN) by the Portuguese Government. Catalyxx announced that Sines, Portugal, has been selected as the location for Catalyxx Ibérica, the company’s first commercial-scale plant. Located in one of Europe’s most important industrial and logistics hubs, the €120M Sines facility was selected for its world-class industrial infrastructure, a deep-water port, excellent logistics connectivity, and access to renewable energy. These advantages will strengthen **Catalyxx**’s position as a leading bio-based chemicals company while supporting the security of supply, decarbonization, and competitiveness of the European chemical sector. The Catalyxx Ibérica project represents the next stage in Catalyxx’s industrial journey. The Sines plant builds directly on this foundation, and will serve as the launchpad for Catalyxx’s global expansion in low-carbon chemicals and fuels.",
+                "score": 0.056324635
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_single_fetch_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Có URL cụ thể phải gọi tool fetch."
+      },
+      "input": "Đọc và tóm tắt nội dung từ link https://news.ycombinator.com/item?id=1",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://news.ycombinator.com/item?id=1"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://news.ycombinator.com/item?id=1"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://news.ycombinator.com/item?id=1"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://news.ycombinator.com/item?id=1",
+            "items": [
+              {
+                "title": "Y Combinator | Hacker News",
+                "url": "https://news.ycombinator.com/item?id=1",
+                "source": "news.ycombinator.com",
+                "summary": "|     |     |     |\n| --- | --- | --- |\n| |     |     |     |\n| --- | --- | --- |\n| [![](https://news.ycombinator.com/y18.svg)](https://news.ycombinator.com/) | **[Hacker News](https://news.ycombinator.com/news)** [new](https://news.ycombinator.com/newest) \\| [past](https://news.ycombinator.com/front) \\| [comments](https://news.ycombinator.com/newcomments) \\| [ask](https://news.ycombinator.com/ask) \\| [show](https://news.ycombinator.com/show) \\| [jobs](https://news.ycombinator.com/jobs) \\| [submit](https://news.ycombinator.com/submit) | [login](https://news.ycombinator.com/login?goto=item%3Fid%3D1) | |\n\n| |     |     |     |\n| --- | --- | --- |\n|  |  | [Y Combinator](http://ycombinator.com/) ( [ycombinator.com](https://news.ycombinator.com/from?site=ycombinator.com)) |\n|  | 57 points by [pg](https://news.ycombinator.com/user?id=pg) [on Oct 9, 2006](https://news.ycombinator.com/item?id=1) \\| [hide](https://news.ycombinator.com/hide?id=1&goto=item%3Fid%3D1) \\| [past](https://hn.algolia.com/?query=Y%20Combinator&type=story&dateRange=all&sort=byDate&storyText=false&prefix&page=0) \\| [favorite](https://news.ycombinator.com/fave?id=1&auth=5328fcfde7333d68e67a8a2334e25acee5599932) \\| [3 comments](https://news.ycombinator.com/item?id=1) |\n|  |  |\n\n|     |     |     |\n| --- | --- | --- |\n| |     |     |     |\n| --- | --- | --- |\n| ![](https://news.ycombinator.com/s.gif) |  | [sama](https://news.ycombinator.com/user?id=sama) [on Oct 9, 2006](https://news.ycombinator.com/item?id=15) \\| [next](https://news.ycombinator.com/item?id=1#487171)\\[–\\]<br>\"the rising star of venture capital\" -unknown VC eating lunch on SHR | |\n| |     |     |     |\n| --- | --- | --- |\n| ![](https://news.ycombinator.com/s.gif) |  | [pg](https://news.ycombinator.com/user?id=pg) [on Oct 9, 2006](https://news.ycombinator.com/item?id=17) \\| [parent](https://news.ycombinator.com/item?id=1#15) \\| [next](https://news.ycombinator.com/item?id=1#487171)\\[–\\]<br>Is there anywhere to eat on Sandhill Road? | |\n| |     |     |     |\n| --- | --- | --- |\n| ![](https://news.ycombinator.com/s.gif) |  | [dmon](https://news.ycombinator.com/user?id=dmon) [on Feb 25, 2007](https://news.ycombinator.com/item?id=1079) \\| [root](https://news.ycombinator.com/item?id=1#15) \\| [parent](https://news.ycombinator.com/item?id=1#17) \\| [next](https://news.ycombinator.com/item?id=1#487171)\\[–\\]<br>sure | | |\n| ![](https://news.ycombinator.com/s.gif)\n\n|     |\n| --- |\n|  |\n\n[Consider applying for YC's Fall 2026 batch! Applications are open till July 27.](https://www.ycombinator.com/apply/)\n\n[Guidelines](https://news.ycombinator.com/newsguidelines.html) \\| [FAQ](https://news.ycombinator.com/newsfaq.html) \\| [Lists](https://news.ycombinator.com/lists) \\| [API](https://github.com/HackerNews/API) \\| [Security](https://news.ycombinator.com/security.html) \\| [Legal](https://www.ycombinator.com/legal/) \\| [Apply to YC](https://www.ycombinator.com/apply/) \\| [Contact](mailto:hn@ycombinator.com)\n\nSearch: |"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_single_out_of_scope_coding",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Yêu cầu coding ngoài phạm vi research -> không gọi tool."
+      },
+      "input": "Viết giúp mình một đoạn code HTML đơn giản tạo nút bấm đổi màu.",
+      "expect": {
+        "no_tool": true
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Dưới đây là một đoạn code HTML đơn giản tạo một nút bấm có chức năng đổi màu nền của trang khi được nhấn:\n\n```html\n<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Đổi Màu Nền</title>\n    <style>\n        body {\n            transition: background-color 0.5s;\n        }\n    </style>\n</head>\n<body>\n\n    <button id=\"colorButton\">Đổi Màu Nền</button>\n\n    <script>\n        const button = document.getElementById('colorButton');\n        button.addEventListener('click', () => {\n            document.body.style.backgroundColor = \n                document.body.style.backgroundColor === 'lightblue' ? 'lightgreen' : 'lightblue';\n        });\n    </script>\n\n</body>\n</html>\n```\n\n### Hướng dẫn sử dụng:\n1. Sao chép đoạn mã trên và dán vào một tệp tin có đuôi `.html` (ví dụ: `index.html`).\n2. Mở tệp tin đó trong trình duyệt web.\n3. Nhấn nút \"Đổi Màu Nền\" để thay đổi màu nền giữa màu xanh nhạt và màu xanh lá cây.",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G05_single_clarify_missing_info",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Yêu cầu bài viết nhưng không có tài khoản hay URL -> phải hỏi lại bằng clarify."
+      },
+      "input": "Cho mình xin danh sách bài viết mới nhất.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "new",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "missing_info",
+        "failures": [
+          "missing tool call clarify",
+          "extra tool call tech_news"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "tech_news",
+          "args": {
+            "mode": "new",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_tech_news",
+            "mode": "new",
+            "query": "",
+            "items": [
+              {
+                "title": "China tests 6.5 Tesla magnet",
+                "url": "https://theprint.in/india/breakthrough-china-artificial-sun-project-6-5-tesla-magnet/2999321/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:58:50Z",
+                "story_id": 49093570,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093570",
+                "score": 1,
+                "comments": 0,
+                "by": "soniman"
+              },
+              {
+                "title": "More Tailscale tricks for your jailbroken Kindle",
+                "url": "https://tailscale.com/blog/jailbroken-kindle-proxy-tun-modes",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:58:46Z",
+                "story_id": 49093569,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093569",
+                "score": 1,
+                "comments": 0,
+                "by": "Error6571"
+              },
+              {
+                "title": "Show HN: Firemaps Spain – Live wildfire map with wind flow for ES and PT",
+                "url": "https://firemapsspain.online/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:50:06Z",
+                "story_id": 49093528,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093528",
+                "score": 1,
+                "comments": 0,
+                "by": "kalamarico"
+              },
+              {
+                "title": "Manganin: Tools Matter",
+                "url": "https://blog.manganin.dev/blog/tools-matter/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:48:46Z",
+                "story_id": 49093519,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093519",
+                "score": 1,
+                "comments": 0,
+                "by": "ai2027"
+              },
+              {
+                "title": "Israel Is Paying Millions to Train AI Chatbots How to Talk About Gaza",
+                "url": "https://www.dropsitenews.com/p/israel-brad-parscale-ai-chatbots-gaza",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:46:53Z",
+                "story_id": 49093509,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093509",
+                "score": 5,
+                "comments": 0,
+                "by": "jaykru"
+              }
+            ],
+            "source_url": "https://hacker-news.firebaseio.com/v0/newstories.json",
+            "note": "Public Hacker News API; no API key is required."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G06_multi_clarify_followup",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: Lượt 1 thiếu thông tin, lượt 2 user làm rõ -> gọi lookup."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm thông tin giúp mình."
+        },
+        {
+          "role": "user",
+          "content": "Tìm tin tức AI mới nhất trên web hôm nay."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "5U AI scales up new digital workforce platform - American Journal of Transportation",
+                "url": "https://www.ajot.com/news/5u-ai-scales-up-new-digital-workforce-platform",
+                "source": "ajot.com",
+                "summary": "“We are not building another chatbot that answers questions and disappears, we are building AI Workers that understand freight operations, carry out the work, and capture the reasoning behind every decision, so teams can scale their knowledge as well as their capacity.”. 5U AI works inside existing freight systems and uses multi-agent AI trained for logistics workflows, including the complex exceptions and manual decisions that make forwarding operations difficult to automate with generic AI tools or legacy automation. The company is already live with forwarders and carriers across Europe, including with TCI International Logistics, where its AI Workers are being used across air and ocean freight operations. 5U AI is growing its team as part of the scale-up, with plans to hire across product, engineering, operations, commercial, and customer functions. “AI is one of the most exciting developments logistics has seen for a generation, but its value will depend on people who understand the industry and want to build practical tools that solve real operational problems,” said Abik.",
+                "score": 0.2506701
+              },
+              {
+                "title": "Senate confirms Jay Clayton as new intelligence czar - The Washington Post",
+                "url": "https://www.washingtonpost.com/national-security/2026/07/28/senate-confirms-jay-clayton-new-intelligence-czar/",
+                "source": "washingtonpost.com",
+                "summary": "# Senate confirms Jay Clayton as new intelligence czar. The Senate confirmed Jay Clayton as director of national intelligence, ending the acting tenure of Bill Pulte, a housing official and Trump loyalist. Jay Clayton appears before the Senate Intelligence Committee earlier this month during a hearing on his nomination to serve as director of national intelligence. The Senate confirmed Jay Clayton as the director of national intelligence Tuesday, ending the tenure of Bill Pulte, a housing official and Trump loyalist, who held the role for more than a month. The 51-to-47 vote was more partisan than expected after Trump nominated Clayton in June. AI & Tech Brief: Reflection AI arrives in Washington. AI & Tech Brief: Anthropic’s army of AI integrators. AI & Tech Brief: The AI gatekeepers. AI & Tech Brief: The techno-optimist’s case. AI & Tech Brief: GOP Chair Eyes AI Query Red Flags. AI & Tech Brief: Dem caucuses to meet on AI.",
+                "score": 0.23725812
+              },
+              {
+                "title": "Moburst develops AI engine optimization capabilities for established companies - TechCrunch",
+                "url": "https://techcrunch.com/press-release/moburst-develops-ai-engine-optimization-capabilities-for-established-companies/",
+                "source": "techcrunch.com",
+                "summary": "Mobile growth agency Moburst has built out a dedicated AI Engine Optimization practice aimed at established companies with existing app portfolios, betting that the category still lacks agencies with real depth rather than a rebranded service page. AI Engine Optimization, more commonly abbreviated AEO for Answer Engine Optimization, is the practice of structuring a brand’s content and web presence so AI systems such as ChatGPT, Perplexity, and Google’s AI Overviews can confidently cite it when answering a user’s question directly, rather than showing a ranked list of links. For established companies vetting an AEO partner, the practical test is whether the agency can point to specific app-store-side work, not just web content changes, and whether it can describe a concrete process for reconciling inconsistent brand descriptions across many independent sources rather than treating that as someone else’s problem.",
+                "score": 0.22859572
+              },
+              {
+                "title": "1,100 AI workers sign letter asking US to support tools that 'pace the frontier of automated AI development' - Business Insider",
+                "url": "https://www.businessinsider.com/ai-open-letter-automated-development-2026-7",
+                "source": "businessinsider.com",
+                "summary": "# Over 1,100 AI workers sign letter asking US to support tools that 'pace the frontier of automated AI development'. Senior officials at some of the nation's leading AI companies say it's time for the federal government to find a way to put the brakes on AI development if it's needed. \"We request that the U.S. government support an international effort to develop the technical and governance tools needed to deliberately pace the frontier of automated AI development,\" reads an open letter signed by more than 1,100 AI workers from companies including OpenAI, Anthropic, Google, and Meta. The letter zeroes in on \"automated AI development,\" which refers to when AI will be capable of developing itself, something the industry calls \"Recursive Self-Improvement.\" Anthropic has shared that its Claude models are quickly approaching that threshold. Look out for an alert in your inbox the next time a new story is published!",
+                "score": 0.22638187
+              },
+              {
+                "title": "HKT unveils self-developed AI platform HKT.AI One-stop hub for global AI resources, advancing \"AI for All\" in Hong Kong - Voice of Alexandria",
+                "url": "https://www.voiceofalexandria.com/news/national_business_news/hkt-unveils-self-developed-ai-platform-hkt-ai-one-stop-hub-for-global-ai-resources/article_ffd47d45-4254-5797-8fcb-8e30369bcf71.html",
+                "source": "voiceofalexandria.com",
+                "summary": "# HKT unveils self-developed AI platform HKT.AI One-stop hub for global AI resources, advancing \"AI for All\" in Hong Kong. HONG KONG SAR - Media OutReach Newswire - 28 July 2026 - HKT announces the launch of HKT.AI, a one-stop, integrated AI platform that enables businesses and individual customers to access a broad suite of prominent global AI resources through a single and intuitive interface. The platform aims to accelerate the mass adoption of AI in Hong Kong, especially in empowering SMEs in their digital transformation, and advance the vision of \"AI for All.\". HKT.AI aggregates a wide range of Chinese Mainland-based and global AI resources, enabling businesses and individuals to seamlessly access and switch across specialised applications and tools on a single platform to meet diverse work and everyday needs.",
+                "score": 0.2164091
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_multi_confirmation_boundary",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: Đòi gửi Telegram mà chưa có xác nhận -> phải gọi clarify yes_no."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tổng hợp bài tin tức về chip AI."
+        },
+        {
+          "role": "user",
+          "content": "Gửi bản tin này sang Telegram giúp mình."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có xác nhận nội dung bản tin này và muốn gửi nó qua Telegram không?",
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có xác nhận nội dung bản tin này và muốn gửi nó qua Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có xác nhận nội dung bản tin này và muốn gửi nó qua Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_multi_tech_news_filter",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: Gọi tool tech_news với mode=new và lọc từ khóa AI."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tôi muốn cập nhật tình hình công nghệ mới."
+        },
+        {
+          "role": "user",
+          "content": "Lọc ra các bài viết mới đăng về AI từ Hacker News giúp mình."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "new",
+              "query": "AI"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "new",
+              "limit": 5,
+              "query": "AI"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "tech_news",
+          "args": {
+            "mode": "new",
+            "limit": 5,
+            "query": "AI"
+          },
+          "result": {
+            "tool": "get_tech_news",
+            "mode": "new",
+            "query": "AI",
+            "items": [
+              {
+                "title": "More Tailscale tricks for your jailbroken Kindle",
+                "url": "https://tailscale.com/blog/jailbroken-kindle-proxy-tun-modes",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:58:46Z",
+                "story_id": 49093569,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093569",
+                "score": 1,
+                "comments": 0,
+                "by": "Error6571"
+              },
+              {
+                "title": "Show HN: Firemaps Spain – Live wildfire map with wind flow for ES and PT",
+                "url": "https://firemapsspain.online/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:50:06Z",
+                "story_id": 49093528,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093528",
+                "score": 1,
+                "comments": 0,
+                "by": "kalamarico"
+              },
+              {
+                "title": "Israel Is Paying Millions to Train AI Chatbots How to Talk About Gaza",
+                "url": "https://www.dropsitenews.com/p/israel-brad-parscale-ai-chatbots-gaza",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:46:53Z",
+                "story_id": 49093509,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093509",
+                "score": 5,
+                "comments": 0,
+                "by": "jaykru"
+              },
+              {
+                "title": "Cross-platform Shadow AI: Find, score, and report unmanaged AI",
+                "url": "https://www.npmjs.com/package/@guardion/shadow-ai",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:44:18Z",
+                "story_id": 49093496,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093496",
+                "score": 1,
+                "comments": 0,
+                "by": "rflsandroni"
+              },
+              {
+                "title": "Protecting My Server and Knowing What It Does with Tailscale and Beszel",
+                "url": "https://news.ycombinator.com/item?id=49093364",
+                "source": "Hacker News",
+                "summary": "I recently spent a weekend improving my VPS setup, and I ended up learning a lot more about networking than I expected.<p>I had two problems that kept nagging me<p>My SSH port was still exposed to the internet. I know it&#x27;s generally safe with key-based authentication, but I never liked leaving it open.<p>I had no easy way to know if a service had crashed or how much CPU, RAM, or disk space my VPS was actually using and I didn&#x27;t want to SSH into it to see what&#x27;s happening everytime.<p>The solution I ended up with was Tailscale + Beszel.<p>While setting it up, I went down a rabbit hole learning how Tailscale works under the hood with WireGuard, NAT hole punching, DERP relays, and how SSH still works over a UDP based VPN.<p>I wrote everything I learned into a blog post with a detailed guide on setting up Tailscale and Beszel.<p>https:&#x2F;&#x2F;syedfazil.dev&#x2F;blogs&#x2F;tech&#x2F;tailscale-beszel-vps&#x2F;<p>I am looking to help anyone who is facing the same problem and for feedback from experienced folks",
+                "published_at": "2026-07-29T04:17:49Z",
+                "story_id": 49093364,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093364",
+                "score": 1,
+                "comments": 0,
+                "by": "SyedFazil"
+              }
+            ],
+            "source_url": "https://hacker-news.firebaseio.com/v0/newstories.json",
+            "note": "Public Hacker News API; no API key is required."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_multi_timeline_handle",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: Khi user cung cấp handle @sama ở lượt 2 -> gọi timeline."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Mình muốn xem bài đăng của chuyên gia."
+        },
+        {
+          "role": "user",
+          "content": "Lấy bài đăng mới nhất từ tài khoản @sama nhé."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "sama"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "sama",
+            "items": [
+              {
+                "title": "wrong",
+                "summary": "wrong",
+                "url": "https://x.com/sama/status/2081832600591892712",
+                "source": "@sama",
+                "date": "Mon Jul 27 20:02:25 +0000 2026",
+                "metrics": {
+                  "favorites": 11199,
+                  "retweets": 280,
+                  "views": "2155738"
+                }
+              },
+              {
+                "title": "agreed feels big, i want a new kind of computer",
+                "summary": "agreed feels big, i want a new kind of computer",
+                "url": "https://x.com/sama/status/2081513071135346814",
+                "source": "@sama",
+                "date": "Sun Jul 26 22:52:43 +0000 2026",
+                "metrics": {
+                  "favorites": 8126,
+                  "retweets": 284,
+                  "views": "2394830"
+                }
+              },
+              {
+                "title": "chatgpt work is remarkable, and \"work\" undersells it.",
+                "summary": "chatgpt work is remarkable, and \"work\" undersells it.\n\nfrom my phone i sent:\n\n\"use all my chat history to figure out ideas for a long weekend trip with 8 friends, plan the best three options, make a full-stack site where the 9 of us can coordinate on what we would want to do in each place and decide where to go, and then after we get to group agreement make reservations. draft an email in my gmail i can send out to my friends when the site is ready.\"\n\nit...just worked.",
+                "url": "https://x.com/sama/status/2081396796174282900",
+                "source": "@sama",
+                "date": "Sun Jul 26 15:10:41 +0000 2026",
+                "metrics": {
+                  "favorites": 17409,
+                  "retweets": 573,
+                  "views": "3575712"
+                }
+              },
+              {
+                "title": "RT @gdb: stories like this should be told more",
+                "summary": "RT @gdb: stories like this should be told more",
+                "url": "https://x.com/sama/status/2081030523229728800",
+                "source": "@sama",
+                "date": "Sat Jul 25 14:55:15 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 170,
+                  "views": "44777"
+                }
+              },
+              {
+                "title": "RT @pashmerepat: A billion users can now create and publish websites from their phones with ChatGPT Work. ",
+                "summary": "RT @pashmerepat: A billion users can now create and publish websites from their phones with ChatGPT Work. \n\nBut most people don’t really gr…",
+                "url": "https://x.com/sama/status/2080713767122591863",
+                "source": "@sama",
+                "date": "Fri Jul 24 17:56:34 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 118,
+                  "views": "47755"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_multi_no_tool_change_mind",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: User đổi ý không tìm nữa và hỏi câu meta -> no_tool."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm bài báo arXiv về LLM."
+        },
+        {
+          "role": "user",
+          "content": "Thôi không cần tìm nữa, cho mình hỏi bạn tên là gì?"
+        }
+      ],
+      "expect": {
+        "no_tool": true
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Tôi là một AI nghiên cứu, không có tên riêng. Bạn có thể gọi tôi là Research Agent. Có điều gì khác mà tôi có thể giúp bạn không?",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    }
+  ]
+}

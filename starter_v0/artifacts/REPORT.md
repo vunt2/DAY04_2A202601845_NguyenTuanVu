@@ -34,7 +34,7 @@ Research Agent chuyên sâu hỗ trợ tra cứu thông tin đa nguồn (Web, Tw
 | send | Gửi văn bản báo cáo ra kênh ngoài | Không |
 | policy | Tra cứu quy định & chính sách nội bộ công ty | Không |
 | papers | Tìm kiếm bài báo khoa học trên arXiv | Không |
-| paper_text | Lấy toàn văn nội dung bài báo khoa học arXiv từ URL/ID | Có (Nhóm phát triển) |
+| paper_text | Lấy toàn văn nội dung bài báo khoa học arXiv từ URL/ID | Không — optional built-in |
 | tech_news | Lấy tin tức công nghệ hot/mới từ Hacker News | Có (Nhóm phát triển) |
 
 ## A3. Câu hỏi mẫu để thử
@@ -49,10 +49,10 @@ Research Agent chuyên sâu hỗ trợ tra cứu thông tin đa nguồn (Web, Tw
 
 | Scenario | Tool trace cần thấy | Câu chuyện cải thiện version | Fallback run/transcript |
 |---|---|---|---|
-| 1. Tra cứu tweet Sam Altman | `timeline(screenname="sama")` | v0 đoán bừa/gọi nhầm tool -> v3 map đúng handle `sama` | `runs/v3_B_base_openrouter_*.json` |
-| 2. Hỏi thông tin thiếu (vắng URL) | `clarify(response_type="text")` | v0 đoán đại URL -> v3 hỏi lại người dùng lịch sự | `runs/v3_B_base_openrouter_*.json` |
-| 3. Xác nhận trước khi gửi | `clarify(response_type="yes_no")` | v0 tự gửi nguy hiểm -> v3 có confirmation boundary | `runs/v3_B_base_openrouter_*.json` |
-| 4. Tìm bài báo khoa học arXiv | `papers(query="LLM reasoning")` | v0 tìm web chung -> v3 dùng đúng arXiv tools | `runs/v3_B_group_openrouter_*.json` |
+| 1. Tra cứu tweet Sam Altman | `timeline(screenname="sama")` | So sánh routing giữa baseline và các version sau | `runs/v3_B_base_openrouter_20260729T115714395627.json` |
+| 2. Hỏi thông tin thiếu (vắng URL) | `clarify(response_type="text")` | Kiểm tra clarification boundary | `runs/v3_B_base_openrouter_20260729T115714395627.json` |
+| 3. Xác nhận trước khi gửi | `clarify(response_type="yes_no")` | Kiểm tra confirmation boundary | `runs/v3_B_base_openrouter_20260729T115714395627.json` |
+| 4. Tin công nghệ Hacker News | `tech_news(mode="top", limit=5)` | Kiểm tra tool mới của nhóm | `runs/v3_B_group_openrouter_20260729T115951949481.json` |
 
 ---
 
@@ -62,10 +62,10 @@ Research Agent chuyên sâu hỗ trợ tra cứu thông tin đa nguồn (Web, Tw
 
 | Version | Prompt/tool change | Hypothesis | Metric name | Before | After | Run File |
 |---|---|---|---|---:|---:|---|
-| v0 | Baseline prompt | Baseline prompt đoán mò tham số và bỏ qua boundary | case_accuracy | 0.00 | 0.70 | `runs/v0_B_base_openrouter_20260729T103434443875.json` |
-| v1 | Thêm quy tắc clarify & confirmation boundary | Quy tắc clarify rõ ràng giúp giảm lỗi missing_info và wrong_boundary | case_accuracy | 0.70 | 0.85 | `runs/v1_B_base_openrouter_20260729T105303966979.json` |
-| v2 | Tối ưu routing timeline, search & mapping handle | Định nghĩa rõ mapping handle (sama, elonmusk) và timeframe giải quyết wrong_tool/args | case_accuracy | 0.85 | 0.95 | `runs/v2_B_base_openrouter_20260729T105303979726.json` |
-| v3 | Tinh chỉnh prompt multi-turn & bổ sung group tools | Prompt v3 hoàn chỉnh xử lý 100% case base và 100% case group | case_accuracy | 0.95 | 1.00 | `runs/v3_B_base_openrouter_20260729T105303980713.json` |
+| v0 | Baseline prompt/tool declaration | Baseline chưa ràng buộc đủ routing, clarification và confirmation | case_accuracy | 0.00 | 0.65 | `runs/v0_B_base_openrouter_20260729T115110429608.json` |
+| v1 | Clarification & confirmation rules | Quy tắc boundary rõ giúp giảm lỗi missing-information và routing | case_accuracy | 0.65 | 0.95 | `runs/v1_B_base_openrouter_20260729T115233569301.json` |
+| v2 | Thêm declaration `tech_news` | Tool chuyên biệt có thể cải thiện routing Hacker News nhưng phải đo regression | case_accuracy | 0.95 | 0.60 | `runs/v2_B_base_openrouter_20260729T115442592735.json` |
+| v3 | Refinement routing & confirmation | Điều chỉnh routing/boundary phục hồi một phần regression v2 | case_accuracy | 0.60 | 0.75 | `runs/v3_B_base_openrouter_20260729T115714395627.json` |
 
 ## B2. Failure analysis
 
@@ -78,35 +78,35 @@ Research Agent chuyên sâu hỗ trợ tra cứu thông tin đa nguồn (Web, Tw
 
 ## B3. Team eval cases
 
-Danh sách 10 case trong `data/eval_group.json`:
+Danh sách 10 case trong `data/eval_group.json`. Run group v3 cuối đạt **8/10 (0.80)**; hai case chưa đạt là `G02_single_lookup_news` và `G05_single_clarify_missing_info`.
 
 | Case ID | What It Tests | Expected Tool/Behavior | Result |
 |---|---|---|---|
-| G01_arxiv_paper_search | Single-turn: Tìm bài báo khoa học | `papers(query="LLM reasoning")` | PASS |
-| G02_company_policy_lookup | Single-turn: Tra cứu quy định nội bộ | `policy(query="data privacy", policy_area="data_privacy")` | PASS |
-| G03_missing_arxiv_id | Single-turn: Đọc bài báo nhưng vắng arXiv URL | `clarify(response_type="text")` | PASS |
-| G04_out_of_scope_weather | Single-turn: Dự báo thời tiết ngoài phạm vi | `no_tool` (refuse) | PASS |
-| G05_confirm_telegram_send | Single-turn: Gửi báo cáo qua Telegram | `clarify(response_type="yes_no")` | PASS |
-| GM01_clarify_then_search_paper | Multi-turn: Lượt 1 thiếu thông tin, lượt 2 bổ sung chủ đề | `papers(query="Quantum Computing")` | PASS |
-| GM02_carryover_search_topic | Multi-turn: Giữ nguyên timeframe=week/topic=news | `lookup(query="DeepSeek", topic="news", timeframe="week")` | PASS |
-| GM03_clarify_arxiv_url | Multi-turn: Cung cấp link arXiv ở lượt 2 | `paper_text(arxiv_url="https://arxiv.org/abs/2401.00001")` | PASS |
-| GM04_correction_search_type | Multi-turn: Đổi search_type từ Latest sang Top | `social_search(query="Claude 3.5", search_type="Top")` | PASS |
-| GM05_switch_tool_to_policy | Multi-turn: Chuyển đổi từ web search sang policy tool | `policy(query="AI research", policy_area="ai_research")` | PASS |
+| G01_single_tech_news | Single-turn: Hacker News hot | `tech_news(mode="top", limit=5)` | PASS |
+| G02_single_lookup_news | Single-turn: tin ô tô điện tuần này | `lookup(topic="news", timeframe="week")` | FAIL — wrong_arg_value |
+| G03_single_fetch_url | Single-turn: đọc URL cụ thể | `fetch(url=...)` | PASS |
+| G04_single_out_of_scope_coding | Single-turn: coding ngoài phạm vi | `no_tool` | PASS |
+| G05_single_clarify_missing_info | Single-turn: yêu cầu thiếu nguồn | `clarify(response_type="text")` | FAIL — missing_info |
+| G06_multi_clarify_followup | Multi-turn: làm rõ tin AI hôm nay | `lookup(topic="news", timeframe="day")` | PASS |
+| G07_multi_confirmation_boundary | Multi-turn: gửi Telegram chưa xác nhận | `clarify(response_type="yes_no")` | PASS |
+| G08_multi_tech_news_filter | Multi-turn: lọc AI từ Hacker News | `tech_news(mode="new", query="AI")` | PASS |
+| G09_multi_timeline_handle | Multi-turn: cung cấp @sama | `timeline(screenname="sama")` | PASS |
+| G10_multi_no_tool_change_mind | Multi-turn: đổi ý, câu hỏi meta | `no_tool` | PASS |
 
 ## B4. Live chat evidence
 
-| Scenario/Turn | Version | Tool Calls + Args | Outcome |
-|---|---|---|---|
-| Tweet Sam Altman | v3 | `timeline(screenname="sama")` | Lấy chính xác 5 tweet mới nhất của Sam Altman |
-| Đọc bài viết không kèm link | v3 | `clarify(question="Bạn có thể cung cấp URL...", response_type="text")` | Hỏi lại URL từ người dùng thành công |
-| Gửi tin Telegram | v3 | `clarify(question="Bạn có muốn gửi báo cáo này...", response_type="yes_no")` | Dừng lại xin xác nhận thành công trước khi phát hành |
+| Scenario/Turn | Version | Tool Calls + Args | Transcript File | Outcome |
+|---|---|---|---|---|
+| a) Research request thông thường | v3 | `social_search(query="OpenAI Sam Altman", search_type="Top")` | `transcripts/transcript_standard_research.json` | Lấy và tổng hợp thông tin tin tức mạng xã hội thành công |
+| b) Request thiếu thông tin tác giả | v3 | `clarify(response_type="text")` ➔ `timeline(screenname="samaltman")` | `transcripts/transcript_missing_info_clarify.json` | Hỏi lại người dùng handle ở lượt 1, tra cứu timeline ở lượt 2 |
+| c) Hành động nhạy cảm (Gửi Telegram) | v3 | `clarify(question="...", response_type="yes_no")` | `transcripts/transcript_sensitive_action_confirm.json` | Dừng lại xin xác nhận thành công trước khi gửi tin nhắn |
 
 ## B5. Tool capability evidence
 
 | Category | Evidence File | What Worked | Risk / Guardrail |
 |---|---|---|---|
-| Must-have: tool mới (`paper_text`) | `tools/paper_text/tool.py` | Trích xuất nội dung toàn văn bài báo từ arXiv URL | Đã bổ sung giới hạn `max_pages` và `max_chars` tránh quá tải |
-| Optional built-in (`policy`, `papers`) | `tools/policy/tool.py`, `tools/papers/tool.py` | Tra cứu quy định nội bộ và tìm bài báo arXiv | Giới hạn `top_k` và `max_results` |
+| Must-have: tool mới (`tech_news`) | `tools/tech_news/tool.py` | Tra cứu các bài viết tin tức công nghệ hot/mới nhất từ Hacker News API | Đã giới hạn `limit` từ 1–10 và kiểm soát mode `top`/`new` |
+| Optional built-in (`policy`, `papers`, `paper_text`) | `tools/policy/tool.py`, `tools/papers/tool.py`, `tools/paper_text/tool.py` | Tra cứu quy định nội bộ, đọc toàn văn bài báo arXiv | Giới hạn `top_k`, `max_pages` và `max_results` |
 
 ## B6. Reflection
 
