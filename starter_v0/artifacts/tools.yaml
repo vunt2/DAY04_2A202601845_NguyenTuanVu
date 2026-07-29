@@ -2,7 +2,7 @@
 tools:
   # ---------------- Core tools ----------------
   - name: clarify
-    description: "Gửi một câu hỏi làm rõ hoặc xin xác nhận từ người dùng khi thiếu thông tin hoặc trước hành động gửi."
+    description: "Dùng khi không thể thực hiện yêu cầu an toàn/chính xác vì thiếu thông tin bắt buộc, hoặc trước hành động có tác động bên ngoài. Không dùng nếu thông tin cần thiết đã có hoặc có thể trả lời trực tiếp. Mặc định response_type=text; dùng yes_no cho bước xác nhận; chỉ dùng choice khi có các lựa chọn rõ ràng."
     parameters:
       type: object
       properties:
@@ -12,7 +12,7 @@ tools:
       required: [question]
 
   - name: timeline
-    description: "Lấy các bài đăng gần đây của một người dùng hoặc tài khoản cụ thể trên mạng xã hội (VD: sama, elonmusk, karpathy)."
+    description: "Lấy bài đăng X/Twitter gần đây của MỘT tài khoản cụ thể. Dùng khi người dùng nêu tên tài khoản/nhân vật; chuyển tên phổ biến sang handle khi chắc chắn (Sam Altman→sama, Elon Musk→elonmusk, Andrej Karpathy→karpathy). Không dùng để tìm thảo luận theo chủ đề; dùng social_search cho trường hợp đó. screenname là bắt buộc; limit mặc định 5."
     parameters:
       type: object
       properties:
@@ -21,7 +21,7 @@ tools:
       required: [screenname]
 
   - name: social_search
-    description: "Tìm kiếm các bài đăng/tweet trên mạng xã hội theo từ khóa hoặc chủ đề chung."
+    description: "Tìm các bài đăng X/Twitter theo chủ đề hoặc từ khóa. Dùng khi người dùng hỏi mọi người đang nói gì trên Twitter/X; không dùng để lấy timeline của một tài khoản (dùng timeline) hay tìm web diện rộng (dùng lookup). search_type mặc định Latest; chỉ đặt Top khi người dùng yêu cầu top/phổ biến. limit mặc định 5."
     parameters:
       type: object
       properties:
@@ -31,7 +31,7 @@ tools:
       required: [query]
 
   - name: lookup
-    description: "Tra cứu thông tin hoặc tin tức trên internet."
+    description: "Tìm kiếm web diện rộng. Dùng cho tin tức hoặc nguồn ngoài Hacker News/X; không dùng để đọc một URL đã biết (dùng fetch), lấy tin chỉ từ Hacker News (dùng tech_news), hoặc tìm bài đăng X (dùng social_search). topic mặc định general; đặt topic=news cho tin tức. timeframe mặc định week; day=today/hôm nay, week=tuần này, month=tháng này, year=năm nay. max_results mặc định 5."
     parameters:
       type: object
       properties:
@@ -42,7 +42,7 @@ tools:
       required: [query]
 
   - name: fetch
-    description: "Lấy nội dung chi tiết từ một đường dẫn URL cụ thể."
+    description: "Đọc và trích nội dung một URL cụ thể thành Markdown. Dùng khi người dùng đã cung cấp URL hoặc cần đọc chi tiết một kết quả; không dùng để tìm URL mới (dùng lookup/tech_news) hoặc khi URL bị thiếu (dùng clarify). url là bắt buộc."
     parameters:
       type: object
       properties:
@@ -50,7 +50,7 @@ tools:
       required: [url]
 
   - name: tech_news
-    description: "Lấy các bài công nghệ hoặc AI mới từ Hacker News. Dùng khi người dùng cần top story hoặc tin công nghệ mới; không dùng để tìm kiếm web tổng quát. Không cần API key."
+    description: "Lấy tin công nghệ/AI từ Hacker News. Dùng khi người dùng cần top story hoặc bài công nghệ mới trên Hacker News; không dùng để tìm web diện rộng (lookup), đọc URL cụ thể (fetch), hay tìm bài X/Twitter (social_search). mode=top mặc định cho bài xếp hạng cao; mode=new cho bài mới. limit mặc định 5, từ 1–10. query là từ khóa lọc tùy chọn. Không cần API key."
     parameters:
       type: object
       properties:
@@ -60,7 +60,7 @@ tools:
       required: [mode, limit]
 
   - name: format
-    description: "Trình bày các thông tin/kết quả nghiên cứu đã thu thập thành văn bản báo cáo theo định dạng mong muốn."
+    description: "Định dạng danh sách items đã có thành Markdown digest. Dùng sau khi đã thu thập dữ liệu từ tool khác hoặc khi người dùng cung cấp items; không dùng để tìm kiếm/đọc nguồn mới. template mặc định sections; brief giới hạn 5 mục, bullets là danh sách ngắn, thread là dạng chuỗi bài đăng, daily_ai_vn là bản tin tiếng Việt. headline là tiêu đề tùy chọn."
     parameters:
       type: object
       properties:
@@ -82,7 +82,7 @@ tools:
 
   # ---------------- Bonus / Special tools ----------------
   - name: send
-    description: "Gửi một đoạn văn bản hoặc báo cáo ra kênh ngoài (chỉ gọi sau khi đã xác nhận với người dùng qua clarify)."
+    description: "Gửi nội dung lên Telegram; đây là action tool có tác động bên ngoài. Chỉ gọi sau khi người dùng xác nhận rõ ràng nội dung và việc gửi. Trước xác nhận, gọi clarify với response_type=yes_no và KHÔNG gọi send. Khi gọi thật phải đặt confirmed=true; confirmed mặc định false và chỉ trả needs_confirmation."
     parameters:
       type: object
       properties:
@@ -91,7 +91,7 @@ tools:
       required: [text]
 
   - name: policy
-    description: "Tìm kiếm thông tin trong các tài liệu quy định và chính sách nội bộ của công ty."
+    description: "Tìm quy định trong tài liệu chính sách nội bộ. Dùng cho câu hỏi về policy của công ty; không dùng để tìm tin tức/công nghệ bên ngoài. policy_area mặc định all, top_k mặc định 3."
     parameters:
       type: object
       properties:
@@ -101,7 +101,7 @@ tools:
       required: [query]
 
   - name: papers
-    description: "Tìm kiếm các bài báo nghiên cứu khoa học trên arXiv."
+    description: "Tìm bài báo khoa học trên arXiv. Dùng cho yêu cầu nghiên cứu học thuật; không dùng cho tin tức phổ thông hoặc để đọc toàn văn một paper đã xác định (dùng paper_text). max_results mặc định 5; sort_by mặc định relevance."
     parameters:
       type: object
       properties:
@@ -111,7 +111,7 @@ tools:
       required: [query]
 
   - name: paper_text
-    description: "Lấy nội dung toàn văn bản của một bài báo khoa học từ arXiv URL hoặc arXiv ID."
+    description: "Tải và trích text từ PDF arXiv theo arXiv ID/URL. Dùng khi đã có paper cụ thể và cần đọc nội dung; không dùng để tìm paper mới (dùng papers). max_pages mặc định 5, max_chars mặc định 8000. Tool ghi file PDF/text cục bộ, không có tác động bên ngoài."
     parameters:
       type: object
       properties:
