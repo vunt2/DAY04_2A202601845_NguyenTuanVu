@@ -2,12 +2,12 @@
 
 ## Team
 
-- **Team**: DAY04_2A202601845_NguyenTuanVu
+- **Team**: DAY04_2A202601845_NguyenTuanVu (Nhóm 4)
 - **Members**:
-  - Nguyễn Tuấn Vũ (UI, Report & Integration Lead)
-  - Nguyễn Văn Phong (Tool & Tool-Declaration Developer)
-  - Nguyễn Phúc Hưng (System Prompt & Routing Policy Engineer)
-  - Nguyễn Hữu Khánh Tùng (Eval, Evidence & QA Lead)
+  1. Nguyễn Tuấn Vũ (MSSV: 2A202601845 - Trưởng nhóm / UI & Report Lead)
+  2. Nguyễn Phúc Hưng (MSSV: 2A202601115 - Prompt & Policy Engineer)
+  3. Nguyễn Văn Phong (MSSV: 2A202601087 - Tool Developer)
+  4. Nguyễn Hữu Khánh Tùng (MSSV: 2A202601781 - Eval & Benchmark QA)
 - **Provider/model**: OpenRouter / `openai/gpt-4o-mini`
 
 ---
@@ -16,7 +16,7 @@
 
 ## A1. Agent này làm được gì
 
-Research Agent chuyên sâu hỗ trợ tra cứu thông tin đa nguồn (Web, Twitter/Social, bài báo khoa học arXiv, tài liệu chính sách nội bộ), đọc nội dung URL/arXiv toàn văn, hỏi làm rõ khi thiếu thông tin và xin xác nhận trước khi thực hiện hành động ghi/gửi.
+Research Agent chuyên sâu hỗ trợ tra cứu thông tin đa nguồn (Web, Twitter/Social, bài báo khoa học arXiv, tài liệu chính sách nội bộ, tin tức công nghệ Hacker News), đọc nội dung URL/arXiv toàn văn, hỏi làm rõ khi thiếu thông tin và xin xác nhận trước khi thực hiện hành động ghi/gửi.
 
 **Link dùng thử (truy cập được trong showdown):**
 - URL: `http://localhost:8501` (Streamlit UI local demo)
@@ -35,6 +35,7 @@ Research Agent chuyên sâu hỗ trợ tra cứu thông tin đa nguồn (Web, Tw
 | policy | Tra cứu quy định & chính sách nội bộ công ty | Không |
 | papers | Tìm kiếm bài báo khoa học trên arXiv | Không |
 | paper_text | Lấy toàn văn nội dung bài báo khoa học arXiv từ URL/ID | Có (Nhóm phát triển) |
+| tech_news | Lấy tin tức công nghệ hot/mới từ Hacker News | Có (Nhóm phát triển) |
 
 ## A3. Câu hỏi mẫu để thử
 
