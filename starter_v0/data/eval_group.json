@@ -1,7 +1,242 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Template để NHÓM tự viết đúng 10 case: 5 single-turn dùng query và 5 multi-turn dùng turns. Mỗi case cần: id, phase='B', failure_type (thuộc allowed_failure_types), expect (tool_calls[...] hoặc no_tool=true), và metadata.what_it_tests. File để trống có chủ đích vì mỗi nhóm phải tự thiết kế các case này.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "Bộ 10 Eval cases do nhóm thiết kế (5 single-turn + 5 multi-turn) bao gồm kiểm thử tool mới tech_news, routing, confirmation boundary, clarification và no_tool cases.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_single_tech_news",
+      "phase": "B",
+      "query": "Lấy 5 bài tin tức công nghệ hot nhất hôm nay từ Hacker News.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "top",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Routing tin công nghệ hot từ Hacker News sang tool mới tech_news."
+      }
+    },
+    {
+      "id": "G02_single_lookup_news",
+      "phase": "B",
+      "query": "Tìm kiếm tin tức về công nghệ pin ô tô điện trong tuần này.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "pin ô tô điện",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Routing web search thời sự có topic=news và timeframe=week."
+      }
+    },
+    {
+      "id": "G03_single_fetch_url",
+      "phase": "B",
+      "query": "Đọc và tóm tắt nội dung từ link https://news.ycombinator.com/item?id=1",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://news.ycombinator.com/item?id=1"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Có URL cụ thể phải gọi tool fetch."
+      }
+    },
+    {
+      "id": "G04_single_out_of_scope_coding",
+      "phase": "B",
+      "query": "Viết giúp mình một đoạn code HTML đơn giản tạo nút bấm đổi màu.",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true
+      },
+      "metadata": {
+        "what_it_tests": "Yêu cầu coding ngoài phạm vi research -> không gọi tool."
+      }
+    },
+    {
+      "id": "G05_single_clarify_missing_info",
+      "phase": "B",
+      "query": "Cho mình xin danh sách bài viết mới nhất.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Yêu cầu bài viết nhưng không có tài khoản hay URL -> phải hỏi lại bằng clarify."
+      }
+    },
+    {
+      "id": "G06_multi_clarify_followup",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm thông tin giúp mình."
+        },
+        {
+          "role": "user",
+          "content": "Tìm tin tức AI mới nhất trên web hôm nay."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Multi-turn: Lượt 1 thiếu thông tin, lượt 2 user làm rõ -> gọi lookup."
+      }
+    },
+    {
+      "id": "G07_multi_confirmation_boundary",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tổng hợp bài tin tức về chip AI."
+        },
+        {
+          "role": "user",
+          "content": "Gửi bản tin này sang Telegram giúp mình."
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Multi-turn: Đòi gửi Telegram mà chưa có xác nhận -> phải gọi clarify yes_no."
+      }
+    },
+    {
+      "id": "G08_multi_tech_news_filter",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tôi muốn cập nhật tình hình công nghệ mới."
+        },
+        {
+          "role": "user",
+          "content": "Lọc ra các bài viết mới đăng về AI từ Hacker News giúp mình."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "new",
+              "query": "AI"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Multi-turn: Gọi tool tech_news với mode=new và lọc từ khóa AI."
+      }
+    },
+    {
+      "id": "G09_multi_timeline_handle",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Mình muốn xem bài đăng của chuyên gia."
+        },
+        {
+          "role": "user",
+          "content": "Lấy bài đăng mới nhất từ tài khoản @sama nhé."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Multi-turn: Khi user cung cấp handle @sama ở lượt 2 -> gọi timeline."
+      }
+    },
+    {
+      "id": "G10_multi_no_tool_change_mind",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm bài báo arXiv về LLM."
+        },
+        {
+          "role": "user",
+          "content": "Thôi không cần tìm nữa, cho mình hỏi bạn tên là gì?"
+        }
+      ],
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true
+      },
+      "metadata": {
+        "what_it_tests": "Multi-turn: User đổi ý không tìm nữa và hỏi câu meta -> no_tool."
+      }
+    }
+  ]
 }

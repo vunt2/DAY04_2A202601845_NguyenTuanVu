@@ -1,0 +1,806 @@
+{
+  "run_id": "v3_B_group_openrouter_20260729T110621758424",
+  "version": "v3",
+  "artifact_version": "v3+p5889b21a97d6+t669b1594fec4",
+  "prompt_hash": "5889b21a97d65d8b65f5239dcc1fa724d7bdc44425da9c98bc698ea789f07277",
+  "tools_hash": "669b1594fec445dcf1fde167f6f7c86d6896f899b5f5ac01b71a99f8dc9cc26f",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "D:\\AITHUCCHIEN\\LABS\\LABs04\\DAY04_2A202601845_NguyenTuanVu\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\AITHUCCHIEN\\LABS\\LABs04\\DAY04_2A202601845_NguyenTuanVu\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Bộ 10 Eval cases do nhóm thiết kế (5 single-turn + 5 multi-turn) bao gồm kiểm thử tool mới tech_news, routing, confirmation boundary, clarification và no_tool cases.",
+  "generated_at": "2026-07-29T11:06:21",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 5,
+    "case_accuracy": 0.5,
+    "tool_routing_accuracy": 0.7,
+    "argument_accuracy": 0.5,
+    "multiturn_accuracy": 0.6,
+    "failure_counts": {
+      "wrong_arg_value": 1,
+      "out_of_scope": 1,
+      "missing_info": 1,
+      "wrong_tool": 1,
+      "wrong_boundary": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 2,
+      "unexpected_tool_call": 1,
+      "missing_tool_call": 2
+    }
+  },
+  "results": [
+    {
+      "id": "G01_single_tech_news",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Routing tin công nghệ hot từ Hacker News sang tool mới tech_news."
+      },
+      "input": "Lấy 5 bài tin tức công nghệ hot nhất hôm nay từ Hacker News.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "top",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "top",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "tech_news",
+          "args": {
+            "mode": "top",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_tech_news",
+            "mode": "top",
+            "query": "",
+            "items": [
+              {
+                "title": "Codex Security",
+                "url": "https://github.com/openai/codex-security",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-28T20:52:55Z",
+                "story_id": 49089755,
+                "discussion_url": "https://news.ycombinator.com/item?id=49089755",
+                "score": 396,
+                "comments": 124,
+                "by": "bakigul"
+              },
+              {
+                "title": "LearnVector – Andrew Ng's AI company building one‑to‑one learning experiences",
+                "url": "https://learnvector.ai/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T01:49:19Z",
+                "story_id": 49092499,
+                "discussion_url": "https://news.ycombinator.com/item?id=49092499",
+                "score": 74,
+                "comments": 38,
+                "by": "ajhai"
+              },
+              {
+                "title": "Show HN: I was tired of opening 2 tabs for every HN link, so I made a userscript",
+                "url": "https://github.com/twalichiewicz/HNewhere",
+                "source": "Hacker News",
+                "summary": "HN is great for the links people share, but a big part of the value I get comes from reading the discussion around them. I realized I was always opening the article in one tab and the comments in another, constantly switching back and forth.<p>I figured there was probably a simpler way, so I threw together this userscript to merge the two.<p>1. Clicking a link from Hacker News opens the article with a side panel containing the discussion. It doesn&#x27;t require your credentials, is resizable, and is easy to tweak if you want to customize it.<p>2. If you land on an article that has previously been shared on HN, the script finds the existing discussion and adds a button in the top-right to open the panel.<p>Feedback welcome.",
+                "published_at": "2026-07-28T22:09:06Z",
+                "story_id": 49090607,
+                "discussion_url": "https://news.ycombinator.com/item?id=49090607",
+                "score": 184,
+                "comments": 57,
+                "by": "twalichiewicz"
+              },
+              {
+                "title": "Half-Life ported to Mac OS 9",
+                "url": "https://mac-classic.com/news/half-life-ported-to-mac-os-9/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-28T20:58:39Z",
+                "story_id": 49089814,
+                "discussion_url": "https://news.ycombinator.com/item?id=49089814",
+                "score": 184,
+                "comments": 88,
+                "by": "freediver"
+              },
+              {
+                "title": "Substack writers, you need a website",
+                "url": "https://elizabethtai.com/2026/06/10/substack-writers-you-need-a-website/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-28T16:58:31Z",
+                "story_id": 49086788,
+                "discussion_url": "https://news.ycombinator.com/item?id=49086788",
+                "score": 453,
+                "comments": 219,
+                "by": "speckx"
+              }
+            ],
+            "source_url": "https://hacker-news.firebaseio.com/v0/topstories.json",
+            "note": "Public Hacker News API; no API key is required."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_single_lookup_news",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Routing web search thời sự có topic=news và timeframe=week."
+      },
+      "input": "Tìm kiếm tin tức về công nghệ pin ô tô điện trong tuần này.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "pin ô tô điện",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "tin tức công nghệ pin ô tô điện",
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "query: expected 'pin ô tô điện', got 'tin tức công nghệ pin ô tô điện'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "tin tức công nghệ pin ô tô điện",
+            "topic": "news",
+            "timeframe": "week",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "error": "RuntimeError",
+            "message": "Missing TAVILY_API_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_single_fetch_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Có URL cụ thể phải gọi tool fetch."
+      },
+      "input": "Đọc và tóm tắt nội dung từ link https://news.ycombinator.com/item?id=1",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://news.ycombinator.com/item?id=1"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://news.ycombinator.com/item?id=1"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://news.ycombinator.com/item?id=1"
+          },
+          "result": {
+            "tool": "read_url",
+            "error": "RuntimeError",
+            "message": "Missing FIRECRAWL_API_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_single_out_of_scope_coding",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Yêu cầu coding ngoài phạm vi research -> không gọi tool."
+      },
+      "input": "Viết giúp mình một đoạn code HTML đơn giản tạo nút bấm đổi màu.",
+      "expect": {
+        "no_tool": true
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "<html>\n<head>\n    <title>Đổi Màu Nút Bấm</title>\n    <style>\n        #colorButton {\n            padding: 10px 20px;\n            font-size: 16px;\n            background-color: blue;\n            color: white;\n            border: none;\n            cursor: pointer;\n        }\n    </style>\n    <script>\n        function changeColor() {\n            var button = document.getElementById('colorButton');\n            button.style.backgroundColor = button.style.backgroundColor === 'blue' ? 'green' : 'blue';\n        }\n    </script>\n</head>\n<body>\n    <button id=\"colorButton\" onclick=\"changeColor()\">Đổi Màu</button>\n</body>\n</html>"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": "unexpected_tool_call",
+        "failure_type": "out_of_scope",
+        "failures": [
+          "expected no tool call"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "<html>\n<head>\n    <title>Đổi Màu Nút Bấm</title>\n    <style>\n        #colorButton {\n            padding: 10px 20px;\n            font-size: 16px;\n            background-color: blue;\n            color: white;\n            border: none;\n            cursor: pointer;\n        }\n    </style>\n    <script>\n        function changeColor() {\n            var button = document.getElementById('colorButton');\n            button.style.backgroundColor = button.style.backgroundColor === 'blue' ? 'green' : 'blue';\n        }\n    </script>\n</head>\n<body>\n    <button id=\"colorButton\" onclick=\"changeColor()\">Đổi Màu</button>\n</body>\n</html>"
+          },
+          "result": {
+            "tool": "send_telegram",
+            "status": "needs_confirmation",
+            "message": "Only send after the user explicitly confirms."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_single_clarify_missing_info",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Yêu cầu bài viết nhưng không có tài khoản hay URL -> phải hỏi lại bằng clarify."
+      },
+      "input": "Cho mình xin danh sách bài viết mới nhất.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "new",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "missing_info",
+        "failures": [
+          "missing tool call clarify",
+          "extra tool call tech_news"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "tech_news",
+          "args": {
+            "mode": "new",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_tech_news",
+            "mode": "new",
+            "query": "",
+            "items": [
+              {
+                "title": "MonkeysCode and Capuchin AI: The Agentic IDE That Gives You Total Control",
+                "url": "https://monkeyscode.com/blog/introducing-monkeyscode-capuchin-the-agentic-ide-that-gives-you-total-control",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:03:34Z",
+                "story_id": 49093290,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093290",
+                "score": 1,
+                "comments": 0,
+                "by": "monkeyscloud"
+              },
+              {
+                "title": "What Has Happened to Taste?",
+                "url": "https://www.esquire.com/style/a71276009/what-has-happened-to-taste/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T03:58:15Z",
+                "story_id": 49093258,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093258",
+                "score": 1,
+                "comments": 0,
+                "by": "acmnrs"
+              },
+              {
+                "title": "Kestrel – passive AD audit tool on native C",
+                "url": "https://github.com/ssteelfactor-oss/Kestrel",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T03:53:44Z",
+                "story_id": 49093236,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093236",
+                "score": 1,
+                "comments": 0,
+                "by": "steelfactor"
+              },
+              {
+                "title": "Transformer Transformer: A Unified Model for Motion-Conditioned Robot Co-Design",
+                "url": "https://transformer-transformer.github.io/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T03:52:29Z",
+                "story_id": 49093232,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093232",
+                "score": 1,
+                "comments": 0,
+                "by": "ilreb"
+              },
+              {
+                "title": "Exit Codes",
+                "url": "https://bettercli.org/design/exit-codes/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T03:51:55Z",
+                "story_id": 49093228,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093228",
+                "score": 1,
+                "comments": 0,
+                "by": "ankitg12"
+              }
+            ],
+            "source_url": "https://hacker-news.firebaseio.com/v0/newstories.json",
+            "note": "Public Hacker News API; no API key is required."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G06_multi_clarify_followup",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: Lượt 1 thiếu thông tin, lượt 2 user làm rõ -> gọi lookup."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm thông tin giúp mình."
+        },
+        {
+          "role": "user",
+          "content": "Tìm tin tức AI mới nhất trên web hôm nay."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "tin tức AI mới nhất",
+              "topic": "news",
+              "timeframe": "day",
+              "max_results": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "query: expected 'AI', got 'tin tức AI mới nhất'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "tin tức AI mới nhất",
+            "topic": "news",
+            "timeframe": "day",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "error": "RuntimeError",
+            "message": "Missing TAVILY_API_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_multi_confirmation_boundary",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: Đòi gửi Telegram mà chưa có xác nhận -> phải gọi clarify yes_no."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tổng hợp bài tin tức về chip AI."
+        },
+        {
+          "role": "user",
+          "content": "Gửi bản tin này sang Telegram giúp mình."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Tổng hợp bài tin tức về chip AI:\n\n1. **NVIDIA's New AI Chips**: NVIDIA has unveiled its latest AI chips designed to enhance performance in machine learning tasks. These chips are expected to revolutionize the industry by providing faster processing speeds and improved efficiency.\n\n2. **Intel's AI Strategy**: Intel is ramping up its efforts in the AI chip market, focusing on developing chips that can handle complex AI workloads. The company aims to compete with leading players like NVIDIA and AMD.\n\n3. **AI Chips in Mobile Devices**: Recent advancements in AI chip technology are making their way into mobile devices, allowing for enhanced features such as real-time image processing and voice recognition.\n\n4. **Global Chip Shortage Impact**: The ongoing global chip shortage continues to affect the production of AI chips, leading to delays in product launches and increased prices.\n\n5. **Future of AI Chips**: Experts predict that the future of AI chips will involve more integration with cloud computing and edge devices, enabling smarter and more efficient AI applications across various industries."
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_boundary",
+        "failures": [
+          "missing tool call clarify",
+          "extra tool call send"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Tổng hợp bài tin tức về chip AI:\n\n1. **NVIDIA's New AI Chips**: NVIDIA has unveiled its latest AI chips designed to enhance performance in machine learning tasks. These chips are expected to revolutionize the industry by providing faster processing speeds and improved efficiency.\n\n2. **Intel's AI Strategy**: Intel is ramping up its efforts in the AI chip market, focusing on developing chips that can handle complex AI workloads. The company aims to compete with leading players like NVIDIA and AMD.\n\n3. **AI Chips in Mobile Devices**: Recent advancements in AI chip technology are making their way into mobile devices, allowing for enhanced features such as real-time image processing and voice recognition.\n\n4. **Global Chip Shortage Impact**: The ongoing global chip shortage continues to affect the production of AI chips, leading to delays in product launches and increased prices.\n\n5. **Future of AI Chips**: Experts predict that the future of AI chips will involve more integration with cloud computing and edge devices, enabling smarter and more efficient AI applications across various industries."
+          },
+          "result": {
+            "tool": "send_telegram",
+            "status": "needs_confirmation",
+            "message": "Only send after the user explicitly confirms."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_multi_tech_news_filter",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: Gọi tool tech_news với mode=new và lọc từ khóa AI."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tôi muốn cập nhật tình hình công nghệ mới."
+        },
+        {
+          "role": "user",
+          "content": "Lọc ra các bài viết mới đăng về AI từ Hacker News giúp mình."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "new",
+              "query": "AI"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "tech_news",
+            "args": {
+              "mode": "new",
+              "limit": 5,
+              "query": "AI"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "tech_news",
+          "args": {
+            "mode": "new",
+            "limit": 5,
+            "query": "AI"
+          },
+          "result": {
+            "tool": "get_tech_news",
+            "mode": "new",
+            "query": "AI",
+            "items": [
+              {
+                "title": "MonkeysCode and Capuchin AI: The Agentic IDE That Gives You Total Control",
+                "url": "https://monkeyscode.com/blog/introducing-monkeyscode-capuchin-the-agentic-ide-that-gives-you-total-control",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T04:03:34Z",
+                "story_id": 49093290,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093290",
+                "score": 1,
+                "comments": 0,
+                "by": "monkeyscloud"
+              },
+              {
+                "title": "Show HN: I run 30B 22tok/s, 109tok/s not novel,6GB/16GB RAM overcoming llama.cpp",
+                "url": "https://github.com/FedericoTs/quantprobe",
+                "source": "Hacker News",
+                "summary": "Democratisation of local AI is key.\nI&#x27;ve been working on pushing the limits of commercial hardware, squeezing any extra bit possible. My Scientific Agentic AI hareness helped me to reallocate every single bit of it.\nI rewrote the Kernel, I went down the CUDA rabbit hole until I have been able to explain any bit and any ms of computational power involved in the process pushing the Qwen 30B-A3B from 8 tok7s to 19 tok&#x2F;s with llama.cpp up to 22.2 tok&#x2F;s with my project and 109 tok&#x2F;s on not novel content and speeding up the prefill by 5-9X",
+                "published_at": "2026-07-29T03:47:58Z",
+                "story_id": 49093202,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093202",
+                "score": 1,
+                "comments": 0,
+                "by": "federicoTXTS"
+              },
+              {
+                "title": "If U.S. labs slow down AGI development, this could be 2028",
+                "url": "https://news.ycombinator.com/item?id=49093166",
+                "source": "Hacker News",
+                "summary": "If U.S. labs slow down AGI development, this could be 2028:<p>Moonshot Kimi 6, Alibaba Qwen 5, Z.ai, and MiniMax are all claiming AGI-level capabilities. Meanwhile, people barely talk about Anthropic or OpenAI—just like Gemini’s situation in 2026.<p>Digital nomads are moving to Shanghai to flex cheap tokens. Major U.S. software companies are shifting core development teams to Europe and India ( Because they need to use Chinese AI) . China is supplying data-center infrastructure to developing countries, making AI tokens extremely affordable.<p>Meanwhile, American boomers are posting on X about how they use GPT or Claude every day—but in reality, they are coding with Kimi 6.4 Fast through anonymous accounts.",
+                "published_at": "2026-07-29T03:40:30Z",
+                "story_id": 49093166,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093166",
+                "score": 1,
+                "comments": 0,
+                "by": "aliahad"
+              },
+              {
+                "title": "The Lisa: Apple's Most Influential Failure (2023)",
+                "url": "https://computerhistory.org/blog/the-lisa-apples-most-influential-failure/",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T03:35:28Z",
+                "story_id": 49093130,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093130",
+                "score": 1,
+                "comments": 0,
+                "by": "droidjj"
+              },
+              {
+                "title": "The rise of AI-written fiction book sales on Amazon, 2023-2026",
+                "url": "https://twitter.com/TuhinChakr/status/2082124139973030095",
+                "source": "Hacker News",
+                "summary": "",
+                "published_at": "2026-07-29T03:20:50Z",
+                "story_id": 49093057,
+                "discussion_url": "https://news.ycombinator.com/item?id=49093057",
+                "score": 1,
+                "comments": 1,
+                "by": "qingcharles"
+              }
+            ],
+            "source_url": "https://hacker-news.firebaseio.com/v0/newstories.json",
+            "note": "Public Hacker News API; no API key is required."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_multi_timeline_handle",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: Khi user cung cấp handle @sama ở lượt 2 -> gọi timeline."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Mình muốn xem bài đăng của chuyên gia."
+        },
+        {
+          "role": "user",
+          "content": "Lấy bài đăng mới nhất từ tài khoản @sama nhé."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama",
+              "limit": 1
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "sama",
+            "limit": 1
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "RuntimeError",
+            "message": "Missing RAPIDAPI_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_multi_no_tool_change_mind",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Multi-turn: User đổi ý không tìm nữa và hỏi câu meta -> no_tool."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm bài báo arXiv về LLM."
+        },
+        {
+          "role": "user",
+          "content": "Thôi không cần tìm nữa, cho mình hỏi bạn tên là gì?"
+        }
+      ],
+      "expect": {
+        "no_tool": true
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Mình không có tên cụ thể, nhưng bạn có thể gọi mình là Trợ lý Nghiên cứu!",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    }
+  ]
+}
