@@ -83,11 +83,12 @@ st.markdown("""
 with st.sidebar:
     st.title("⚙️ Agent Controls")
     
-    provider_name = st.selectbox(
+    provider_raw = st.selectbox(
         "AI Provider:",
-        ["openrouter", "openai", "gemini", "anthropic"],
+        ["mock (offline demo)", "openrouter", "openai", "gemini", "anthropic"],
         index=0,
     )
+    provider_name = provider_raw.split()[0]
     
     model_override = st.text_input("Model Name (tuỳ chọn):", value="", placeholder="Mặc định theo provider")
     
@@ -251,7 +252,17 @@ with tab_chat:
                 st.rerun()
 
             except Exception as e:
-                st.error(f"Lỗi khi chạy Agent: {e}")
+                err_str = str(e)
+                if "Missing API key env var" in err_str:
+                    st.warning(
+                        "⚠️ **THIẾU API KEY CHO AI PROVIDER ĐÃ CHỌN!**\n\n"
+                        f"Chi tiết lỗi: `{err_str}`\n\n"
+                        "💡 **Cách khắc phục:**\n"
+                        "1. **Cách 1 (Chạy Offline)**: Chọn Provider là **`mock (offline demo)`** ở thanh Sidebar bên trái để chạy thử ngay không cần API key.\n"
+                        "2. **Cách 2 (Chạy API Thật)**: Mở file `starter_v0/.env` trên máy bạn và dán API Key (vd: `OPENROUTER_API_KEY=...` hoặc `GEMINI_API_KEY=...`)."
+                    )
+                else:
+                    st.error(f"Lỗi khi chạy Agent: {e}")
 
 with tab_transcript:
     st.markdown("### 📑 Full Transcript & Run JSON Inspector")
