@@ -1,7 +1,283 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Template để NHÓM tự viết đúng 10 case: 5 single-turn dùng query và 5 multi-turn dùng turns. Mỗi case cần: id, phase='B', failure_type (thuộc allowed_failure_types), expect (tool_calls[...] hoặc no_tool=true), và metadata.what_it_tests. File để trống có chủ đích vì mỗi nhóm phải tự thiết kế các case này.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "Bộ 10 test case do nhóm thiết kế (5 single-turn, 5 multi-turn) để đánh giá routing, parameter extraction, clarification boundary và multi-turn carryover.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_arxiv_paper_search",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm bài báo khoa học mới nhất về LLM reasoning",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "LLM reasoning"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_arxiv_papers",
+        "difficulty": "medium",
+        "what_it_tests": "Tìm bài báo khoa học → routing sang tool papers (arxiv_search)"
+      }
+    },
+    {
+      "id": "G02_company_policy_lookup",
+      "phase": "B",
+      "suite": "group",
+      "query": "Chính sách công ty về data privacy quy định thế nào?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "query": "data privacy",
+              "policy_area": "data_privacy"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_company_policy",
+        "difficulty": "medium",
+        "what_it_tests": "Hỏi chính sách nội bộ → routing sang tool policy với policy_area=data_privacy"
+      }
+    },
+    {
+      "id": "G03_missing_arxiv_id",
+      "phase": "B",
+      "suite": "group",
+      "query": "Đọc nội dung bài báo khoa học này giúp tôi",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "clarify_missing_arxiv_url",
+        "difficulty": "medium",
+        "what_it_tests": "Yêu cầu đọc bài báo nhưng thiếu arXiv URL/ID → gọi clarify để hỏi người dùng"
+      }
+    },
+    {
+      "id": "G04_out_of_scope_weather",
+      "phase": "B",
+      "suite": "group",
+      "query": "Dự báo thời tiết Hà Nội hôm nay thế nào?",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "metadata": {
+        "skill": "out_of_scope_weather",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi thời tiết ngoài phạm vi research agent → không gọi tool"
+      }
+    },
+    {
+      "id": "G05_confirm_telegram_send",
+      "phase": "B",
+      "suite": "group",
+      "query": "Gửi báo cáo này vào Telegram nhóm",
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "confirm_before_send",
+        "difficulty": "medium",
+        "what_it_tests": "Hành động gửi Telegram cần xác nhận trước -> gọi clarify response_type=yes_no"
+      }
+    },
+    {
+      "id": "GM01_clarify_then_search_paper",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm giúp tôi bài báo arXiv mới nhất"
+        },
+        {
+          "role": "user",
+          "content": "Về chủ đề Quantum Computing nhé"
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "Quantum Computing"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_clarify_paper_query",
+        "difficulty": "hard",
+        "what_it_tests": "Multi-turn: Lượt 1 thiếu chủ đề bài báo, lượt 2 bổ sung chủ đề -> gọi papers query Quantum Computing"
+      }
+    },
+    {
+      "id": "GM02_carryover_search_topic",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức AI tuần này trên web"
+        },
+        {
+          "role": "user",
+          "content": "Chuyển sang tìm tin về DeepSeek"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn là tin tức tuần này nhé"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "DeepSeek",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_carryover_news",
+        "difficulty": "hard",
+        "what_it_tests": "Multi-turn: Đổi từ khóa sang DeepSeek nhưng giữ timeframe=week và topic=news"
+      }
+    },
+    {
+      "id": "GM03_clarify_arxiv_url",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài báo arXiv này giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Link bài báo là https://arxiv.org/abs/2401.00001"
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "https://arxiv.org/abs/2401.00001"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_clarify_arxiv_url",
+        "difficulty": "medium",
+        "what_it_tests": "Multi-turn: Sau khi hỏi clarify, người dùng cung cấp link arxiv -> gọi paper_text"
+      }
+    },
+    {
+      "id": "GM04_correction_search_type",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm các tweet mới nhất về Claude 3.5"
+        },
+        {
+          "role": "user",
+          "content": "À không, lấy các tweet hot nhất (Top) đi"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Claude 3.5",
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_correction_search_type",
+        "difficulty": "hard",
+        "what_it_tests": "Multi-turn: Điều chỉnh search_type từ Latest sang Top"
+      }
+    },
+    {
+      "id": "GM05_switch_tool_to_policy",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm thông tin về AI research trên web"
+        },
+        {
+          "role": "user",
+          "content": "Không, tìm trong tài liệu chính sách nội bộ công ty cơ"
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "query": "AI research",
+              "policy_area": "ai_research"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_switch_to_policy",
+        "difficulty": "hard",
+        "what_it_tests": "Multi-turn: Chuyển đổi tool từ lookup sang policy với query AI research"
+      }
+    }
+  ]
 }
