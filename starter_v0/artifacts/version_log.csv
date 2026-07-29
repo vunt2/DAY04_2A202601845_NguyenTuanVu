@@ -1,1 +1,2 @@
 version,author,changed_artifact,artifact_version,prompt_hash,tools_hash,reason,hypothesis,metric_name,metric_before,metric_after,run_file
+v0,Tùng/Vũ,baseline,v0_baseline,hash_v0,tools_v0,Initial baseline run,Establish baseline performance on base eval,pass_rate,0.0,0.0,runs/run_v0.json
